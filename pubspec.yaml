@@ -1,7 +1,0 @@
-name: ACSAR
-
-dependencies:
-  firebase_core: ^1.19.0
-  cloud_firestore: ^3.2.0
-environment:
-  sdk: '^3.5.0' 
