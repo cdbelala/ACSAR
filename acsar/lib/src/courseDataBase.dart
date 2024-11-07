@@ -2,6 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 //class to define the 'DataBase' type and its atrributes,
 //as well as accessing the data within the database
+
+const error = "error 404";
+
 class DataBase {
   final FirebaseFirestore db = FirebaseFirestore.instance;
 
