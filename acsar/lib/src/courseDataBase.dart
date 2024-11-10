@@ -37,7 +37,8 @@ class DataBase {
       'Course Name': newCourseName,
       'Days': newDays,
       'Professor': newProf,
-      'Building': newBldg
+      'Building': newBldg,
+      'Name': newName
     };
     try {
       await coursesCollection.doc(newName).set(newCourse);
