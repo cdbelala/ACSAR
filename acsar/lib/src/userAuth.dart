@@ -5,8 +5,9 @@ import 'setRoles.dart';
 
 class UserAuthentication {
   final FirebaseFirestore db = FirebaseFirestore.instance;
-  final emailAddress = "";
-  final password = "";
+
+  String emailAddress = "";
+  String password = "";
 
   bool isStudent = false;
   bool isInstructor = false;
@@ -16,9 +17,11 @@ class UserAuthentication {
   final String roleInstructor = "IS_INSTRUCTOR";
   final String roleAdmin = "IS_ADMIN";
 
+  //will be moved to sign up program soon
   void signUp(String email, String password, String role) async {
     String newEmail = email;
     String newPassword = password;
+    //determine user role here
 
     await Firebase.initializeApp();
     await FirebaseAuth.instance
@@ -26,12 +29,25 @@ class UserAuthentication {
   }
 
   void login(String email, String password, String role) async {
-    String role = "";
+    SetRoles setRoles = new SetRoles();
+
+    String inputRole = role;
+    String inputEmail = email;
+    String inputPassword = password;
 
     await Firebase.initializeApp();
+
+    if (inputEmail == null || inputPassword == null) {
+      String errorMsg = "Error, no email and password detected";
+    }
+
+    //check if email and password are valid (not implemented yet)
+
+    //sign in user
     await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password);
 
+    //role determines the interface shown to the user
     if (isStudent == true) {
       role = roleStudent;
     } else if (isInstructor == true) {
@@ -40,43 +56,17 @@ class UserAuthentication {
       role = roleAdmin;
     }
 
-    //need to find a way to check and see if the 'email' value does not exist
-    //before checking, not sure how to do that yet
     switch (role) {
       case "IS_STUDENT":
-        isStudent = true;
-        isInstructor = false;
-        isAdmin = false;
-        db.collection('Email Addresses').doc(email).update({'Student': true});
-        db
-            .collection('Email Addresses')
-            .doc(email)
-            .update({'Instructor': false});
-        db.collection('Email Addresses').doc(email).update({'Admin': false});
+
         //show student interface here
         break;
       case "IS_INSTRUCTOR":
-        isStudent = false;
-        isInstructor = true;
-        isAdmin = false;
-        db.collection('Email Addresses').doc(email).update({'Student': false});
-        db
-            .collection('Email Addresses')
-            .doc(email)
-            .update({'Instructor': true});
-        db.collection('Email Addresses').doc(email).update({'Admin': false});
+
         //show instructor interface here
         break;
       case "IS_ADMIN":
-        isStudent = false;
-        isInstructor = false;
-        isAdmin = true;
-        db.collection('Email Addresses').doc(email).update({'Student': false});
-        db
-            .collection('Email Addresses')
-            .doc(email)
-            .update({'Instructor': false});
-        db.collection('Email Addresses').doc(email).update({'Admin': true});
+
         //show admin interface here
         break;
     }
