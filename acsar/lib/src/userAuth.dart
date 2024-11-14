@@ -39,6 +39,7 @@ class UserAuthentication {
 
     if (inputEmail == null || inputPassword == null) {
       String errorMsg = "Error, no email and password detected";
+      //need to return this somehow
     }
 
     //check if email and password are valid (not implemented yet)

@@ -6,6 +6,12 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const MyApp());
+
+  //on open, show the login page
+  //log in if already signed up, and show appropriate interface depending on role
+  //if not signed up, write user info to firebase DB to add as either an admin, student, or instructor
+  //probably will be a switch statement similar to the one in setRoles.dart
+  //call the appropriate user backend function after displaying appropriate interface
 }
 
 class MyApp extends StatelessWidget {
