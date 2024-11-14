@@ -8,49 +8,13 @@ const error = "error 404";
 class DataBase {
   final FirebaseFirestore db = FirebaseFirestore.instance;
 
-  //Admin view function to add courses.
   //The function sets the variables for the relevant course in the 'Course' class
   //and the 'addCouse' function adds it to the Firebase database.
   //void setVars() {}
-  void addCourse(
-      int newAvailSlots,
-      int newEnrlCount,
-      int newStartTime,
-      int newEndTime,
-      int newCode,
-      int newRoomNum,
-      int newSecNum,
-      String newCourseName,
-      String newDays,
-      String newProf,
-      String newBldg,
-      String newName) async {
-    final coursesCollection = db.collection('Courses');
-    final newCourse = {
-      'Available Slots': newAvailSlots,
-      'Enrolled Count': newEnrlCount,
-      'Start Time': newStartTime,
-      'End Time': newEndTime,
-      'Code': newCode,
-      'Room Number': newRoomNum,
-      'Section Number': newSecNum,
-      'Course Name': newCourseName,
-      'Days': newDays,
-      'Professor': newProf,
-      'Building': newBldg,
-      'Name': newName
-    };
-    try {
-      await coursesCollection.doc(newName).set(newCourse);
-      print('Document written with ID: $newName');
-    } catch (error) {
-      print('Error adding document: $error');
-    }
-  }
 
   void getCourses() async {
     final coursesCollection = db.collection('Courses');
-    QuerySnapshot snapshot = await coursesCollection.get();
+    //QuerySnapshot snapshot = await coursesCollection.get();
   }
 }
 
