@@ -1,44 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'courseDataBase.dart' as courseDB;
+import 'createCourse.dart';
+import 'User Backend/adminBack.dart';
+
+final int error = 404;
 
 class AddCourseToDB {
   final CollectionReference coursesCollection =
       FirebaseFirestore.instance.collection('Courses');
 
-  void addCourse(
-      int newAvailSlots,
-      int newEnrlCount,
-      int newStartTime,
-      int newEndTime,
-      int newCode,
-      int newRoomNum,
-      int newSecNum,
-      String newCourseName,
-      String newDays,
-      String newProf,
-      String newBldg,
-      String newName) async {
-    final newCourse = {
-      'Available Slots': newAvailSlots,
-      'Enrolled Count': newEnrlCount,
-      'Start Time': newStartTime,
-      'End Time': newEndTime,
-      'Code': newCode,
-      'Room Number': newRoomNum,
-      'Section Number': newSecNum,
-      'Course Name': newCourseName,
-      'Days': newDays,
-      'Professor': newProf,
-      'Building': newBldg,
-      'Name': newName
-    };
+  Future<bool> addCourse(Map<String, dynamic> newCourse) async {
+    String newName = newCourse['Course Name'];
 
     //need to change print statements to be logging statements, not important as of yet
     try {
       await coursesCollection.doc(newName).set(newCourse);
       print('Document written with ID: $newName');
+      return true;
     } catch (error) {
       print('Error adding document: $error');
+      return false;
     }
   }
 }

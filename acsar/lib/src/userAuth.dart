@@ -30,7 +30,6 @@ class UserAuthentication {
 
   void login(String email, String password, String role) async {
     SetRoles setRoles = new SetRoles();
-
     String inputRole = role;
     String inputEmail = email;
     String inputPassword = password;

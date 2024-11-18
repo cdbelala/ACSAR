@@ -7,7 +7,7 @@ void main() async {
   await Firebase.initializeApp();
   runApp(const MyApp());
 
-  //on open, show the login page
+  //on open, show the login/signup page
   //log in if already signed up, and show appropriate interface depending on role
   //if not signed up, write user info to firebase DB to add as either an admin, student, or instructor
   //probably will be a switch statement similar to the one in setRoles.dart
