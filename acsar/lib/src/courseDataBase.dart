@@ -38,38 +38,16 @@ class Course {
 }
 
 class DataBaseActions {
-  Map<String, dynamic> createCourse(
-      newAvailSlots,
-      newEnrlCount,
-      newStartTime,
-      newEndTime,
-      newCode,
-      newRoomNum,
-      newSecNum,
-      newCourseName,
-      newDays,
-      newProf,
-      newBldg,
-      newName) {
-    final Map<String, dynamic> course = {
-      'Available Slots': newAvailSlots,
-      'Enrolled Count': newEnrlCount,
-      'Start Time': newStartTime,
-      'End Time': newEndTime,
-      'Code': newCode,
-      'Room Number': newRoomNum,
-      'Section Number': newSecNum,
-      'Course Name': newCourseName,
-      'Days': newDays,
-      'Professor': newProf,
-      'Building': newBldg,
-      'Name': newName
-    };
-    return course;
-  }
-
-  Future<bool> addCourseToDB(Map<String, dynamic> newCourse) async {
+  Future<bool> addCourseToDB(
+      Map<String, dynamic> newCourse, bool isAdmin) async {
+    final CollectionReference coursesCollection =
+        FirebaseFirestore.instance.collection('Courses');
     String newName = newCourse['Course Name'];
+
+    if (isAdmin != true) {
+      print("Only administrators can add courses");
+      return false;
+    }
 
     //need to change print statements to be logging statements, not important as of yet
     try {
@@ -83,10 +61,10 @@ class DataBaseActions {
   }
 
   Future<void> viewCourses() async {
+    final CollectionReference coursesCollection =
+        FirebaseFirestore.instance.collection('Courses');
     try {
       //double check logic later, may need to get a query snapshot
-      final db = courseDB.DataBase();
-      final coursesCollection = db.db.collection('Courses');
       final snapshot = await coursesCollection.get();
 
       for (var doc in snapshot.docs) {
@@ -99,10 +77,14 @@ class DataBaseActions {
     }
   }
 
-  Future<void> deleteCourse(String courseId) async {
+  Future<void> deleteCourse(String courseId, bool isAdmin) async {
+    final CollectionReference coursesCollection =
+        FirebaseFirestore.instance.collection('Courses');
+    if (isAdmin != true) {
+      print("Only administrators can delete courses");
+      return;
+    }
     try {
-      final db = courseDB.DataBase();
-      final coursesCollection = db.db.collection('Courses');
       await coursesCollection.doc(courseId).delete();
       print('Course deleted successfully');
     } catch (error) {
@@ -110,11 +92,16 @@ class DataBaseActions {
     }
   }
 
-  Future<void> addInstructor(String email) async {
+  Future<void> addInstructor(String email, bool isAdmin) async {
+    final CollectionReference userCollection =
+        FirebaseFirestore.instance.collection('Instructors');
+
+    if (isAdmin != true) {
+      print("Only administrators can add instructors");
+      return;
+    }
     try {
-      final db = courseDB.DataBase();
-      final instructorsCollection = db.db.collection('Instructors');
-      await instructorsCollection.doc(email).set({'Email': email});
+      await userCollection.doc(email).set({'Email': email});
 
       print('Instructor added successfully');
     } catch (error) {
@@ -122,33 +109,46 @@ class DataBaseActions {
     }
   }
 
-  Future<void> removeInstructor(String email) async {
+  Future<void> removeInstructor(String email, bool isAdmin) async {
+    final CollectionReference userCollection =
+        FirebaseFirestore.instance.collection('Instructors');
+    if (isAdmin != true) {
+      print("Only administrators can remove instructors");
+      return;
+    }
     try {
-      final db = courseDB.DataBase();
-      final instructorsCollection = db.db.collection('Instructors');
-      await instructorsCollection.doc(email).delete();
+      await userCollection.doc(email).delete();
       print('Instructor removed successfully');
     } catch (error) {
       print('Error removing instructor: $error');
     }
   }
 
-  Future<void> addStudent(String email) async {
+  Future<void> addStudent(String email, bool isAdmin, bool isInstructor) async {
+    final CollectionReference userCollection =
+        FirebaseFirestore.instance.collection('Students');
+    if (isAdmin != true || isInstructor != true) {
+      print("Only administrators and instructors can add students");
+      return;
+    }
     try {
-      final db = courseDB.DataBase();
-      final studentsCollection = db.db.collection('Students');
-      await studentsCollection.doc(email).set({'Email': email});
+      await userCollection.doc(email).set({'Email': email});
       print('Student added successfully');
     } catch (error) {
       print('Error adding student: $error');
     }
   }
 
-  Future<void> removeStudent(String email) async {
+  Future<void> removeStudent(
+      String email, bool isAdmin, bool isInstructor) async {
+    final CollectionReference userCollection =
+        FirebaseFirestore.instance.collection('Students');
+    if (isAdmin != true || isInstructor != true) {
+      print("Only administrators and instructors can remove students");
+      return;
+    }
     try {
-      final db = courseDB.DataBase();
-      final studentsCollection = db.db.collection('Students');
-      await studentsCollection.doc(email).delete();
+      await userCollection.doc(email).delete();
       print('Student removed successfully');
     } catch (error) {
       print('Error removing student: $error');

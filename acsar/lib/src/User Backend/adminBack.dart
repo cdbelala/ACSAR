@@ -1,6 +1,6 @@
-import 'package:acsar/src/addCourse.dart';
 import 'package:acsar/src/createCourse.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:acsar/src/courseDataBase.dart';
 
 class Admin {
   String name;
@@ -48,8 +48,8 @@ class Admin {
     final courseId = '${courseName}_${secNum}_$code';
 
     // Use AddCourseToDB to add the course to Firestore
-    AddCourseToDB courseAdder = AddCourseToDB();
-    bool courseAdded = await courseAdder.addCourse(course);
+    DataBaseActions courseAdder = DataBaseActions();
+    bool courseAdded = await courseAdder.addCourseToDB(course, isAdmin);
     if (courseAdded) {
       print('Course added successfully');
     } else {
