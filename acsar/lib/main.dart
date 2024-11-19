@@ -1,18 +1,62 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:acsar/src/courseDataBase.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const MyApp());
 
+  String logInEmail;
+  String logInPassword;
+
   //on open, show the login/signup page
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Welcome to ACSCAR! :)"),
+              Text("Please log in or sign up below: "),
+              TextField(
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                ),
+                onChanged: (value) {
+                  String logInEmail = value;
+                  // You can use the logInEmail variable here
+                },
+              ),
+              SizedBox(height: 16),
+              TextField(
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                ),
+                obscureText: true,
+                onChanged: (value) {
+                  String logInPassword = value;
+                  // You can use the logInPassword variable here
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
   //log in if already signed up, and show appropriate interface depending on role
+
   //if not signed up, write user info to firebase DB to add as either an admin, student, or instructor
   //probably will be a switch statement similar to the one in setRoles.dart
   //link to the appropriate user backend function after displaying appropriate interface
 }
+
+//below this may possible be deleted
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

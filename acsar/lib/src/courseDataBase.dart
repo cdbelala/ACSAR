@@ -153,6 +153,37 @@ class DataBaseActions {
     } catch (error) {
       print('Error removing student: $error');
     }
+
+    Future<void> addAdmin(String email, bool isAdmin) async {
+      final CollectionReference userCollection =
+          FirebaseFirestore.instance.collection('Admins');
+      if (isAdmin != true) {
+        print("Only administrators can add other administrators");
+        return;
+      }
+      try {
+        await userCollection.doc(email).set({'Email': email});
+        print('Administrator added successfully');
+      } catch (error) {
+        print('Error adding administrator: $error');
+      }
+    }
+
+    Future<void> removeAdmin(String email, bool isAdmin) async {
+      final CollectionReference userCollection =
+          FirebaseFirestore.instance.collection('Admins');
+      //need to add a president style role to remove admins
+      if (isAdmin != true) {
+        print("Only administrators can remove other administrators");
+        return;
+      }
+      try {
+        await userCollection.doc(email).delete();
+        print('Administrator removed successfully');
+      } catch (error) {
+        print('Error removing administrator: $error');
+      }
+    }
   }
 
   //role method too big to keep here, will reference it using getRole
