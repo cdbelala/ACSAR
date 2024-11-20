@@ -2,16 +2,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'userAuth.dart';
 
-final String roleStudent = "IS_STUDENT";
-final String roleInstructor = "IS_INSTRUCTOR";
-final String roleAdmin = "IS_ADMIN";
-
-bool roleStudentTrue = false;
-bool roleInstructorTrue = false;
-bool roleAdminTrue = false;
-
 //class to set the role of a user
 class SetRoles {
+  final String roleStudent = "IS_STUDENT";
+  final String roleInstructor = "IS_INSTRUCTOR";
+  final String roleAdmin = "IS_ADMIN";
+  final String role = "";
+
+  bool roleStudentTrue = false;
+  bool roleInstructorTrue = false;
+  bool roleAdminTrue = false;
+
   UserAuthentication userAuth = new UserAuthentication();
   Future<void> setRoles(String email, String uid, bool isStudent,
       bool isInstructor, bool isAdmin) async {
@@ -22,7 +23,6 @@ class SetRoles {
     roleInstructorTrue = isInstructor;
     roleAdminTrue = isAdmin;
 
-    String role = "";
     if (isStudent == true) {
       role = roleStudent;
     } else if (isInstructor == true) {

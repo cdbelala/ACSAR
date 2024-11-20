@@ -3,6 +3,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:acsar/src/courseDataBase.dart';
+import 'package:acsar/src/setRoles.dart';
+
+SetRoles setRoles = new SetRoles();
+bool isStudent = setRoles.roleStudentTrue;
+bool isInstructor = setRoles.roleInstructorTrue;
+bool isAdmin = setRoles.roleAdminTrue;
+String userRole = setRoles.role;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,7 +21,7 @@ void main() async {
 
   //on open, show the login/signup page
   @override
-  Widget build(BuildContext context) {
+  Widget promptLogIn(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         body: Center(
@@ -49,14 +56,45 @@ void main() async {
       ),
     );
   }
-  //log in if already signed up, and show appropriate interface depending on role
 
+  //log in if already signed up, and show appropriate interface depending on role
+  switch (userRole) {
+    case "IS_STUDENT":
+      Widget studentView(BuildContext context) {
+        return MaterialApp(
+          title: 'Flutter Login Demo',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          home: studentView(), //will show student interface when implemented
+        );
+      }
+    case "IS_INSTRUCTOR":
+      Widget instructorView(BuildContext context) {
+        return MaterialApp(
+          title: 'Flutter Login Demo',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          home:
+              instructorView(), //will show instructor interface when implemented
+        );
+      }
+    case "IS_ADMIN":
+      Widget adminView(BuildContext context) {
+        return MaterialApp(
+          title: 'Flutter Login Demo',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          home: adminView(), //will show admin interface when implemented
+        );
+      }
+  }
   //if not signed up, write user info to firebase DB to add as either an admin, student, or instructor
-  //probably will be a switch statement similar to the one in setRoles.dart
-  //link to the appropriate user backend function after displaying appropriate interface
 }
 
-//below this may possible be deleted
+//--------------------below this may possible be deleted-----------------
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
