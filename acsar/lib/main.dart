@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:acsar/src/courseDataBase.dart';
+//import 'package:firebase_auth/firebase_auth.dart';
+//import 'package:acsar/src/courseDataBase.dart';
 import 'package:acsar/src/setRoles.dart';
 
 SetRoles setRoles = new SetRoles();
@@ -13,7 +13,11 @@ String userRole = setRoles.role;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp();
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  CollectionReference users = db.collection('Users');
+
   runApp(const MyApp());
 
   String logInEmail;
@@ -36,6 +40,7 @@ void main() async {
                 ),
                 onChanged: (value) {
                   String logInEmail = value;
+                  db.collection('Users').doc(logInEmail);
                   // You can use the logInEmail variable here
                 },
               ),
@@ -62,7 +67,7 @@ void main() async {
     case "IS_STUDENT":
       Widget studentView(BuildContext context) {
         return MaterialApp(
-          title: 'Flutter Login Demo',
+          title: 'Student Dashboard',
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
@@ -72,7 +77,7 @@ void main() async {
     case "IS_INSTRUCTOR":
       Widget instructorView(BuildContext context) {
         return MaterialApp(
-          title: 'Flutter Login Demo',
+          title: 'Instructor Dashboard',
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
@@ -83,7 +88,7 @@ void main() async {
     case "IS_ADMIN":
       Widget adminView(BuildContext context) {
         return MaterialApp(
-          title: 'Flutter Login Demo',
+          title: 'Admin Dashboard',
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),

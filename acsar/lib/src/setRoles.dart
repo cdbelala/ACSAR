@@ -7,7 +7,7 @@ class SetRoles {
   final String roleStudent = "IS_STUDENT";
   final String roleInstructor = "IS_INSTRUCTOR";
   final String roleAdmin = "IS_ADMIN";
-  final String role = "";
+  String role = "";
 
   bool roleStudentTrue = false;
   bool roleInstructorTrue = false;
