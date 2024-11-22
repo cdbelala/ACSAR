@@ -55,7 +55,7 @@ class Student {
     }   
   }
 
-  Future<void> addWaitlist(String email String courseName, int code, int secNum) async {  // add student to waitlist 
+  Future<void> addWaitlist(String Studentemail String courseName, int code, int secNum) async {  // add student to waitlist 
 
    if() {   // assuming no conflits 
       await Firebase.initializeApp();
@@ -64,7 +64,7 @@ class Student {
         await UserCollection
             .doc(name)
             .collection("Waitlist")
-            .add({'courseName': courseName, 'email': email, 'code': code, 'secNum': secNum});
+            .add({'courseName': courseName, 'studentemail': studentemail, 'code': code, 'secNum': secNum});
         print("Added to waitlist Successfully."); 
    } catch() { 
           //error handling 
@@ -72,7 +72,7 @@ class Student {
     }
   }
 
-  Future<void> removeWaitlist(String email String courseName, int code, int secNum ) async {  //remove student from waitlist
+  Future<void> removeWaitlist(String Studentemail String courseName, int code, int secNum ) async {  //remove student from waitlist
     if() { 
         await Firebase.initializeApp(); 
         try{ 
@@ -80,7 +80,7 @@ class Student {
             .collection('User')
             .doc(name)
             .collection('Waitlist')
-            .where('email', isEqualTo: email)
+            .where('Studentemail', isEqualTo:studentemail)
             .get(); 
 
         for (var doc in waitlist.docs) { 
