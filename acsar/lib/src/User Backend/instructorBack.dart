@@ -18,14 +18,16 @@ class InstructorController {
     //remove student from course if course is owned by the instructor
   }
 
-  void viewCourses() {
-    //view courses owned by the instructor
-  }
-
   void viewStudents() {
     //prompt instructor for course name
     //check if course is owned by the instructor
     //view students in course
+  }
+
+  void viewStudentDetails() {
+    //prompt instructor for student email
+    //check if student is in the course
+    //view student details
   }
 
   void viewCourseDetails(String courseName) {
@@ -37,5 +39,11 @@ class InstructorController {
   void viewInstructorSchedule() {
     //display all courses owned by the instructor from firestore DB (will be
     //stored in the 'users' collection, appended to the instructor's document)
+  }
+
+  void viewWaitlist() {
+    //prompt instructor for course name
+    //check if course is owned by the instructor
+    //view waitlist
   }
 }
