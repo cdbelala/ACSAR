@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:acsar/src/User Interfaces/studentView.dart';
+import 'package:acsar/src/User Interfaces/instructorView.dart';
+import 'package:acsar/src/User Interfaces/adminView.dart';
 
-class MyWidget extends StatelessWidget {
-  const MyWidget({Key? key}) : super(key: key);
+class ChooseLogin extends StatelessWidget {
+  ChooseLogin({Key? key}) : super(key: key);
+
+  //interface instances
+  final Student studentDash = Student();
+  final Instructor instructorDash = Instructor();
+  final Admin adminDash = Admin();
 
   @override
   Widget build(BuildContext context) => Container(
@@ -106,60 +114,55 @@ class MyWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          width: 246,
-                          height: 70,
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                left: 0,
-                                top: 0,
-                                child: Container(
-                                  width: 246,
-                                  height: 70,
-                                  decoration: ShapeDecoration(
-                                    color: Color(0xFF8B24C9),
-                                    shape: RoundedRectangleBorder(
-                                      side: BorderSide(
-                                        width: 1,
-                                        color: Colors.black.withOpacity(0.2),
+                        GestureDetector(
+                          // Wrap the entire child with GestureDetector
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        studentDash.studentView(context)));
+                            print('Student box tapped!');
+                          },
+                          child: Container(
+                            // Keep the existing container for styling
+                            width: 246,
+                            height: 70,
+                            child: Stack(
+                              children: [
+                                Positioned(
+                                  left: 0,
+                                  top: 0,
+                                  child: Container(
+                                      // ... existing container properties
                                       ),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    shadows: [
-                                      BoxShadow(
-                                        color: Color(0x3F000000),
-                                        blurRadius: 4,
-                                        offset: Offset(0, 4),
-                                      ),
-                                    ],
-                                  ),
                                 ),
-                              ),
-                              Positioned(
-                                left: 18.7,
-                                top: 17,
-                                child: SizedBox(
-                                  width: 208.61,
-                                  height: 37,
-                                  child: Text(
-                                    'Student',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 36,
-                                      fontFamily: 'Montserrat',
-                                      fontWeight: FontWeight.w700,
+                                Positioned(
+                                  left: 18.7,
+                                  top: 17,
+                                  child: SizedBox(
+                                    width: 208.61,
+                                    height: 37,
+                                    child: Text(
+                                      'Student',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 36,
+                                        fontFamily: 'Montserrat',
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ),
+                  //need to add link to admin view
                   Container(
                     height: 110,
                     padding: EdgeInsets.all(20),
@@ -175,53 +178,51 @@ class MyWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          width: 250,
-                          height: 70,
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                left: 0,
-                                top: 0,
-                                child: Container(
-                                  width: 250,
-                                  height: 70,
-                                  decoration: ShapeDecoration(
-                                    color: Color(0xFF8B24C9),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    shadows: [
-                                      BoxShadow(
-                                        color: Color(0x3F000000),
-                                        blurRadius: 4,
-                                        offset: Offset(0, 4),
+                        GestureDetector(
+                          // Wrap the entire child with GestureDetector
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => instructorDash
+                                        .instructorView(context)));
+                            print('Instructor box tapped!');
+                          },
+                          child: Container(
+                            // Keep the existing container for styling
+                            width: 246,
+                            height: 70,
+                            child: Stack(
+                              children: [
+                                Positioned(
+                                  left: 0,
+                                  top: 0,
+                                  child: Container(
+                                      // ... existing container properties
                                       ),
-                                    ],
-                                  ),
                                 ),
-                              ),
-                              Positioned(
-                                left: 24,
-                                top: 13,
-                                child: SizedBox(
-                                  width: 202,
-                                  height: 38,
-                                  child: Text(
-                                    'Professor',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 36,
-                                      fontFamily: 'Montserrat',
-                                      fontWeight: FontWeight.w700,
+                                Positioned(
+                                  left: 18.7,
+                                  top: 17,
+                                  child: SizedBox(
+                                    width: 208.61,
+                                    height: 37,
+                                    child: Text(
+                                      'Student',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 36,
+                                        fontFamily: 'Montserrat',
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
+                        )
                       ],
                     ),
                   ),
@@ -262,4 +263,13 @@ class MyWidget extends StatelessWidget {
           ],
         ),
       );
+}
+
+class login_signup extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: login_signup(),
+    );
+  }
 }
