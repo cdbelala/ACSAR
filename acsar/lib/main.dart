@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-//custome files
+//custom files
 import 'package:acsar/src/courseDataBase.dart';
 import 'package:acsar/src/setRoles.dart';
 import 'package:acsar/src/User Interfaces/login_signup.dart';
@@ -11,7 +11,7 @@ import 'package:acsar/src/User Interfaces/adminView.dart';
 import 'package:acsar/src/User Interfaces/instructorView.dart';
 import 'package:acsar/src/User Interfaces/studentView.dart';
 
-SetRoles setRoles = new SetRoles();
+SetRoles setRoles = SetRoles();
 bool isStudent = setRoles.roleStudentTrue;
 bool isInstructor = setRoles.roleInstructorTrue;
 bool isAdmin = setRoles.roleAdminTrue;
@@ -20,17 +20,13 @@ String userRole = setRoles.role;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp();
-  FirebaseFirestore db = FirebaseFirestore.instance;
-  CollectionReference users = db.collection('Users');
-
   runApp(const MyApp());
 
   String logInEmail;
   String logInPassword;
 
   //on open, show the login/signup page
-  ChooseLogin loginSignup = new ChooseLogin();
+  ChooseLogin loginSignup = ChooseLogin();
   Widget loginSignupView(BuildContext context) {
     return MaterialApp(
       title: 'Login/Signup',
@@ -42,9 +38,9 @@ void main() async {
   }
 
   //log in if already signed up, and show appropriate interface depending on role
-  Student studentDash = new Student();
-  Instructor instructorDash = new Instructor();
-  Admin adminDash = new Admin();
+  Student studentDash = Student();
+  Instructor instructorDash = Instructor();
+  Admin adminDash = Admin();
 
   switch (userRole) {
     case "IS_STUDENT":

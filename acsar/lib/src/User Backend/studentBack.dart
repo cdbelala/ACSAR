@@ -1,7 +1,6 @@
 import 'package:acsar/src/courseDataBase.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:acsar/src/User Interfaces/calendarView.dart';
 import 'package:acsar/src/setRoles.dart';
 import 'package:acsar/src/searchBar.dart';
 

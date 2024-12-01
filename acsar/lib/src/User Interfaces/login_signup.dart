@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:acsar/src/User Interfaces/studentView.dart';
 import 'package:acsar/src/User Interfaces/instructorView.dart';
 import 'package:acsar/src/User Interfaces/adminView.dart';
+
+LoginCtrl loginCtrl = LoginCtrl();
+final String role = loginCtrl.userRole;
 
 class ChooseLogin extends StatelessWidget {
   ChooseLogin({Key? key}) : super(key: key);
@@ -10,6 +14,7 @@ class ChooseLogin extends StatelessWidget {
   final Student studentDash = Student();
   final Instructor instructorDash = Instructor();
   final Admin adminDash = Admin();
+  login_signup loginPage = login_signup();
 
   @override
   Widget build(BuildContext context) => Container(
@@ -122,7 +127,8 @@ class ChooseLogin extends StatelessWidget {
                                 MaterialPageRoute(
                                     builder: (context) =>
                                         studentDash.studentView(context)));
-                            print('Student box tapped!');
+                            print(
+                                'Student box tapped!'); // may be removed in final version
                           },
                           child: Container(
                             // Keep the existing container for styling
@@ -208,7 +214,7 @@ class ChooseLogin extends StatelessWidget {
                                     width: 208.61,
                                     height: 37,
                                     child: Text(
-                                      'Student',
+                                      'Instructor',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Colors.white,
@@ -243,20 +249,28 @@ class ChooseLogin extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(
-                    width: 147,
-                    height: 23,
-                    child: Text(
-                      'Admin',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.w700,
+                  GestureDetector(
+                    onTap: () {
+                      // Action when 'Admin' is tapped
+                      print('Admin box clicked');
+                      // Navigate to another page or show a dialog if needed
+                      // Navigator.push(context, MaterialPageRoute(builder: (context) => AdminLoginPage()));
+                    },
+                    child: SizedBox(
+                      width: 147,
+                      height: 23,
+                      child: Text(
+                        'Admin',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
-                  ),
+                  )
                 ],
               ),
             ),
@@ -271,5 +285,19 @@ class login_signup extends StatelessWidget {
     return Scaffold(
       body: login_signup(),
     );
+  }
+}
+
+class LoginCtrl {
+  String userRole = "";
+  //method to determine role on login
+  void determineRole(bool isStudent, bool isInstructor, bool isAdmin) {
+    if (isStudent == true) {
+      userRole = "IS_STUDENT";
+    } else if (isInstructor == true) {
+      userRole = "IS_INSTRUCTOR";
+    } else if (isAdmin == true) {
+      userRole = "IS_ADMIN";
+    }
   }
 }
