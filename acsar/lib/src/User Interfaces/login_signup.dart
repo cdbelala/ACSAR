@@ -14,7 +14,7 @@ class ChooseLogin extends StatelessWidget {
   final Student studentDash = Student();
   final Instructor instructorDash = Instructor();
   final Admin adminDash = Admin();
-  login_signup loginPage = login_signup();
+  final login_signup loginPage = login_signup();
 
   @override
   Widget build(BuildContext context) => Container(
