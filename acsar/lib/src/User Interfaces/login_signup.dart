@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:acsar/src/User Interfaces/studentView.dart';
 import 'package:acsar/src/User Interfaces/instructorView.dart';
 import 'package:acsar/src/User Interfaces/adminView.dart';
 
-LoginCtrl loginCtrl = LoginCtrl();
-final String role = loginCtrl.userRole;
+String role = "";
 
 class ChooseLogin extends StatelessWidget {
   ChooseLogin({Key? key}) : super(key: key);
@@ -14,7 +12,6 @@ class ChooseLogin extends StatelessWidget {
   final Student studentDash = Student();
   final Instructor instructorDash = Instructor();
   final Admin adminDash = Admin();
-  final login_signup loginPage = login_signup();
 
   @override
   Widget build(BuildContext context) => Container(
@@ -122,6 +119,7 @@ class ChooseLogin extends StatelessWidget {
                         GestureDetector(
                           // Wrap the entire child with GestureDetector
                           onTap: () {
+                            role = 'IS_STUDENT';
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -187,6 +185,7 @@ class ChooseLogin extends StatelessWidget {
                         GestureDetector(
                           // Wrap the entire child with GestureDetector
                           onTap: () {
+                            role = 'IS_INSTRUCTOR';
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -251,10 +250,13 @@ class ChooseLogin extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      // Action when 'Admin' is tapped
-                      print('Admin box clicked');
-                      // Navigate to another page or show a dialog if needed
-                      // Navigator.push(context, MaterialPageRoute(builder: (context) => AdminLoginPage()));
+                      role = 'IS_ADMIN';
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  studentDash.studentView(context)));
+                      print('Admin box tapped!');
                     },
                     child: SizedBox(
                       width: 147,
@@ -285,19 +287,5 @@ class login_signup extends StatelessWidget {
     return Scaffold(
       body: login_signup(),
     );
-  }
-}
-
-class LoginCtrl {
-  String userRole = "";
-  //method to determine role on login
-  void determineRole(bool isStudent, bool isInstructor, bool isAdmin) {
-    if (isStudent == true) {
-      userRole = "IS_STUDENT";
-    } else if (isInstructor == true) {
-      userRole = "IS_INSTRUCTOR";
-    } else if (isAdmin == true) {
-      userRole = "IS_ADMIN";
-    }
   }
 }
