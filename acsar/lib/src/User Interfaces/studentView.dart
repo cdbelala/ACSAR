@@ -4,7 +4,8 @@ import 'package:acsar/src/User Interfaces/login_signup.dart';
 class Student {
   static Widget studentView(BuildContext context) {
     return Scaffold(
-      body: Text('Student Dashboard'), //will be replaced by student interface
+      body:
+          SearchBar.searchBar(context), //will be replaced by student interface
     );
   }
 }
@@ -12,7 +13,7 @@ class Student {
 class SearchBar {
   static Widget searchBar(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Search Bar Example")),
+      appBar: AppBar(title: Text("Course Search")),
       body: Center(
         child: GestureDetector(
           onTap: () {
@@ -37,7 +38,7 @@ class SearchBar {
                   child: TextField(
                     //controller: searchController,
                     decoration: InputDecoration(
-                      hintText: "Search here...",
+                      hintText: "CSC 4...",
                       border: InputBorder.none,
                     ),
                     onSubmitted: (value) {

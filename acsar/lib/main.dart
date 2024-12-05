@@ -18,63 +18,24 @@ bool isAdmin = setRoles.roleAdminTrue;
 String userRole = setRoles.role;
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  runApp(const MyApp());
-
-  String logInEmail;
-  String logInPassword;
-
-  //on open, show the login/signup page
-  ChooseLogin logIn = ChooseLogin();
-  Widget loginSignupView(BuildContext context) {
-    return MaterialApp(
-      title: 'Login/Signup',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: logIn.login(context),
-    );
-  }
-
+  runApp(MyApp());
   //log in if already signed up, and show appropriate interface depending on role
-
-  switch (userRole) {
-    case "IS_STUDENT":
-      Widget studentView(BuildContext context) {
-        return MaterialApp(
-          title: 'Student Dashboard',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
-          home: studentView(
-              context), //will show student interface when implemented
-        );
-      }
-    case "IS_INSTRUCTOR":
-      Widget instructorView(BuildContext context) {
-        return MaterialApp(
-          title: 'Instructor Dashboard',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
-          home: instructorView(
-              context), //will show instructor interface when implemented
-        );
-      }
-    case "IS_ADMIN":
-      Widget adminView(BuildContext context) {
-        return MaterialApp(
-          title: 'Admin Dashboard',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
-          home: adminView(context), //will show admin interface when implemented
-        );
-      }
-  }
-  //if not signed up, write user info to firebase DB to add as either an admin, student, or instructor
 }
 
-//--------------------below this may possible be deleted-----------------
+class MyApp extends StatelessWidget {
+  MyApp({super.key});
 
+  // This widget is the root of your application.
+  @override
+  ChooseLogin roleLogin = ChooseLogin();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Log In!',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: roleLogin.login(context),
+    );
+  }
+}
