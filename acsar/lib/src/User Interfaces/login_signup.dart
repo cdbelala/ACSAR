@@ -3,18 +3,17 @@ import 'package:acsar/src/User Interfaces/studentView.dart';
 import 'package:acsar/src/User Interfaces/instructorView.dart';
 import 'package:acsar/src/User Interfaces/adminView.dart';
 
-String role = "";
-
 class ChooseLogin extends StatelessWidget {
   ChooseLogin({Key? key}) : super(key: key);
 
-  //interface instances
-  final Student studentDash = Student();
-  final Instructor instructorDash = Instructor();
-  final Admin adminDash = Admin();
+  Widget build(BuildContext context) {
+    return Container();
+  }
 
-  @override
-  Widget build(BuildContext context) => Container(
+  String role = "";
+
+  ManageCourseInfo manageCourseInfo = ManageCourseInfo();
+  Widget login(BuildContext context) => Container(
         width: 1440,
         height: 1024,
         clipBehavior: Clip.antiAlias,
@@ -124,7 +123,7 @@ class ChooseLogin extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        studentDash.studentView(context)));
+                                        Student.studentView(context)));
                             print(
                                 'Student box tapped!'); // may be removed in final version
                           },
@@ -189,8 +188,8 @@ class ChooseLogin extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => instructorDash
-                                        .instructorView(context)));
+                                    builder: (context) => manageCourseInfo
+                                        .instructorInterface(context)));
                             print('Instructor box tapped!');
                           },
                           child: Container(
@@ -251,12 +250,9 @@ class ChooseLogin extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       role = 'IS_ADMIN';
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  studentDash.studentView(context)));
-                      print('Admin box tapped!');
+                      //Navigator.push(context,
+                      //MaterialPageRoute(builder: (context) => adminView()));
+                      //print('Admin box tapped!');
                     },
                     child: SizedBox(
                       width: 147,
@@ -281,11 +277,14 @@ class ChooseLogin extends StatelessWidget {
       );
 }
 
-class login_signup extends StatelessWidget {
+/*
+class LoginSignup extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
+  LoginSignup({Key? key}) : super(key: key);
+  Widget logInPage(BuildContext context) {
     return Scaffold(
-      body: login_signup(),
-    );
+        //body: ChooseLogin.build(context), //display login page
+        );
   }
 }
+*/

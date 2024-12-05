@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:acsar/src/User Interfaces/login_signup.dart';
 
 class Student {
-  Widget studentView(BuildContext context) {
+  static Widget studentView(BuildContext context) {
     return Scaffold(
       body: Text('Student Dashboard'), //will be replaced by student interface
     );
@@ -9,7 +10,7 @@ class Student {
 }
 
 class SearchBar {
-  Widget searchBar(BuildContext context) {
+  static Widget searchBar(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Search Bar Example")),
       body: Center(
