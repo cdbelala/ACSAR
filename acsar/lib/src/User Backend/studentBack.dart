@@ -2,7 +2,7 @@ import 'package:acsar/src/courseDataBase.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:acsar/src/setRoles.dart';
-import 'package:acsar/src/searchBar.dart';
+import 'package:flutter/foundation.dart';
 
 class Student {
   String role = "";
@@ -117,6 +117,47 @@ class Student {
     } catch (fserror) {
       //error handling
       return [];
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> readWaitlist(String name) async {
+    try {
+      final QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(name)
+          .collection('Waitlist')
+          .get();
+      List<Map<String, dynamic>> waitlist = [];
+      for (var doc in snapshot.docs) {
+        waitlist.add(doc.data() as Map<String, dynamic>);
+      }
+      return waitlist;
+      print("Waitlist retrieved.");
+    } catch (fserror) {
+      //error handling
+      return [];
+    }
+  }
+
+  Future<List<String>> searchCourses(String courseName) async {
+    try {
+      final QuerySnapshot snapshot =
+          await FirebaseFirestore.instance.collection('Courses').get();
+
+      // Store course names in a list
+      List<String> courseNames = snapshot.docs.map((doc) {
+        final data = doc.data() as Map<String, dynamic>; // Explicit cast
+        return data['courseName'] as String; // Ensure it's a String
+      }).toList();
+
+      for (var doc in snapshot.docs) {
+        print(doc.data());
+      }
+
+      return courseNames; // Return the list of course names
+    } catch (fserror) {
+      print("Error fetching courses: $fserror");
+      return []; // Return an empty list in case of an error
     }
   }
 }
