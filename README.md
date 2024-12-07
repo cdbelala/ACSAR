@@ -1,7 +1,7 @@
 # ACSAR
 The course scheduler that will revolutionize universities' scheduling portal and alleviate headaches from students all over the world!
 
-ACSAR provides a comprehensive and simplied experience to course scheduling for students. Our system will also allow instructors to view student info and add them to their courses manually, and admins can organize all course info from the room number to the class schedule.
+ACSAR provides a comprehensive and simplified experience to course scheduling for students. Our system will also allow instructors to view student info and add them to their courses manually, and admins can organize all course info from the room number to the class schedule.
 
 
 For the Student end:
@@ -15,7 +15,7 @@ For the Student end:
 For the Instructor end:
 
   -View their courses and course info
-  -Manage Students on the waitlist
+  -Manage Students on the waitlist for courses they own
 
 For the Admin end:
 
@@ -29,6 +29,8 @@ For the Admin end:
   -Add start and end time of lab
   -Add professor name
   -Add section number
+
+To use the app, simply run it in the browser! Running 'flutter run -d chrome' in the 'lib' directory will start the application in the chrome browser. 
 
 
 
